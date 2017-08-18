@@ -1,3 +1,16 @@
+/**
+ * Series.kt
+ *
+ * http://exercism.io/exercises/kotlin/largest-series-product/readme
+ * http://exercism.io/tracks/kotlin/exercises/largest-series-product
+ * http://exercism.io/submissions/12e3610fd70d49218336aebc42ed51db
+ *
+ * Other solutions:
+ * http://exercism.io/submissions/3336fe86ad2b4d91806bd00db66c9016
+ *
+ * @author nrojiani
+ * @date 8/17/17
+ */
 data class Series(private val input: String) {
     init {
         require(input.toList().all { it.isDigit() }) { "Input contains non-digit" }
