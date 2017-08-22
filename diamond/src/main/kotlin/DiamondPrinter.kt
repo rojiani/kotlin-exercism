@@ -3,6 +3,7 @@
  *
  * http://exercism.io/exercises/kotlin/diamond/readme
  * http://exercism.io/tracks/kotlin/exercises/diamond
+ * http://exercism.io/submissions/5464a74d136a485abac00581d1d32d09
  */
 class DiamondPrinter {
 
