@@ -1,4 +1,4 @@
 Kotlin Exercism Solutions
 -------------------------
 
-[Exercism - Kotlin Exercises](http://exercism.io/languages/kotlin/exercises)
+Solutions to [Exercism - Kotlin Exercises](http://exercism.io/languages/kotlin/exercises).
