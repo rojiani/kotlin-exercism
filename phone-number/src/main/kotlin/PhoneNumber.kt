@@ -3,6 +3,7 @@
  *
  * http://exercism.io/exercises/kotlin/phone-number/readme
  * http://exercism.io/tracks/kotlin/exercises/phone-number
+ * http://exercism.io/submissions/dd76882113cb4f979ac381f661128579
  *
  * @author nrojiani
  * @date 8/22/17
@@ -27,6 +28,6 @@ data class PhoneNumber(val input: String) {
     }
 
     override fun toString(): String {
-        return "(%s) %s-%s".format(areaCode, exchangeCode, subscriberNumber)
+        return "($areaCode) $exchangeCode-$subscriberNumber"
     }
 }
