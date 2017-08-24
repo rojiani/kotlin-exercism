@@ -2,13 +2,19 @@
  * DNA
  *
  * http://exercism.io/exercises/kotlin/nucleotide-count
+ * http://exercism.io/tracks/kotlin/exercises/nucleotide-count
+ * http://exercism.io/submissions/549463ea595749aa8afdedb56bfd4e87
+ *
+ *
+ * Other solutions:
+ * http://exercism.io/submissions/4d8b147d77e44531968dfc8a28a03486
  *
  * @author nrojiani
  * @date 8/23/17
  */
 data class DNA(val dna: String) {
 
-    private val NUCLEOTIDES = setOf('A', 'C', 'G', 'T')
+    private val dnaNucleotides = setOf('A', 'C', 'G', 'T')
 
 
     init {
@@ -17,15 +23,15 @@ data class DNA(val dna: String) {
 
     val nucleotideCounts: Map<Char, Int>
         get() {
-            val counts = NUCLEOTIDES.map { it to 0 }.toMap()
-            return dna.groupingBy { it }.eachCountTo(counts.toMutableMap())
+            val defaultCounts = dnaNucleotides.map { it to 0 }.toMap()
+            return defaultCounts + dna.groupingBy { it }.eachCount()
         }
 
     fun count(nucleotide: Char): Int {
         require(nucleotide.isDnaNucleotide) { "Invalid input: $nucleotide" }
-        return nucleotideCounts.getOrDefault(nucleotide, 0)
+        return nucleotideCounts[nucleotide] ?: 0
     }
 
     private val Char.isDnaNucleotide: Boolean
-        get() = this in NUCLEOTIDES
+        get() = this in dnaNucleotides
 }
