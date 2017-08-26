@@ -8,11 +8,7 @@ package Scrabble
  * @author nrojiani
  * @date 8/14/17
  */
-fun scoreWord(word: String): Int {
-    return word.sumBy { letter ->
-        valueOf(letter)
-    }
-}
+fun scoreWord(word: String): Int = word.sumBy { letter -> valueOf(letter) }
 
 private fun valueOf(letter: Char): Int =
     when (letter.toUpperCase()) {
