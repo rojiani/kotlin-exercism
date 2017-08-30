@@ -15,7 +15,7 @@ object BracketPush {
      removes it. The stack should be empty at the end.
      */
     fun isValid(input: String): Boolean =
-        input.fold(emptyList<Bracket>()) { stack, c ->
+        input.fold(emptyList<Bracket?>()) { stack, c ->
             when {
                 c.isOpeningBracket() -> stack + Bracket.fromChar(c)
                 c.isClosingBracket() -> {
@@ -29,21 +29,23 @@ object BracketPush {
         }.isEmpty()
 }
 
-enum class Bracket(val open: Char, val close: Char) {
-    SQUARE('[', ']'),
-    CURLY('{', '}'),
-    PARENTHESES('(', ')');
+enum class Bracket(val braces: Pair<Char, Char>) {
+    SQUARE('[' to ']'),
+    CURLY('{' to '}'),
+    PARENTHESES('(' to ')');
 
     companion object {
-        fun fromChar(c: Char) =
-                when (c) {
-                    SQUARE.open, SQUARE.close -> SQUARE
-                    CURLY.open, CURLY.close -> CURLY
-                    PARENTHESES.open, PARENTHESES.close -> PARENTHESES
-                    else -> throw IllegalArgumentException("Not a bracket")
-                }
+        fun fromChar(c: Char): Bracket? {
+            val matches = fun Char.(bracket: Bracket): Boolean = this in bracket.braces.toList()
+            return when {
+                c.matches(SQUARE) -> SQUARE
+                c.matches(CURLY) -> CURLY
+                c.matches(PARENTHESES) -> PARENTHESES
+                else -> null
+            }
+        }
     }
 }
 
-fun Char.isOpeningBracket(): Boolean = Bracket.values().any { it.open == this }
-fun Char.isClosingBracket(): Boolean = Bracket.values().any { it.close == this }
+fun Char.isOpeningBracket(): Boolean = Bracket.values().any { it.braces.first == this }
+fun Char.isClosingBracket(): Boolean = Bracket.values().any { it.braces.second == this }
