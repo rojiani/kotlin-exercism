@@ -19,7 +19,7 @@ data class Triangle(private val a: Double, private val b: Double, private val c:
 
     init {
         val noZeroLengthSides = listOf(a, b, c).all { it > 0.0 }
-        val triangleInequality = (a + b >= c) && (a + c >= b) && (b + c >= a)
+        val triangleInequality = (a + b > c) && (a + c > b) && (b + c > a)
         require(noZeroLengthSides) { "All side lengths must be > 0"}
         require(triangleInequality) { "Not a triangle -> violates triangle inequality"}
     }
