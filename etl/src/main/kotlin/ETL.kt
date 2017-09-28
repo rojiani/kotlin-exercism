@@ -1,5 +1,3 @@
-import com.google.common.collect.ImmutableBiMap
-
 /**
  * ETL
  *
@@ -15,10 +13,7 @@ import com.google.common.collect.ImmutableBiMap
 object ETL {
 
     fun transform(old: Map<Int, List<Char>>): Map<Char, Int> =
-        ImmutableBiMap.copyOf(old)
-                .inverse()
-                .flatMap { (letters, score) ->
+                old.flatMap { (score, letters) ->
                     letters.map { it.toLowerCase() to score }
                 }.toMap()
-
 }
