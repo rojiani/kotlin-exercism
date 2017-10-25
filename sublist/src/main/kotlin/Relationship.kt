@@ -10,8 +10,8 @@ enum class Relationship {
 fun <T> List<T>.relationshipTo(other: List<T>): Relationship =
         when {
             this == other -> EQUAL
-            this.size > other.size  -> if (this.isSuperlistOf(other)) SUPERLIST else UNEQUAL
-            this.size < other.size  -> if (other.isSuperlistOf(this)) SUBLIST else UNEQUAL
+            this.size > other.size && this.isSuperlistOf(other) -> SUPERLIST
+            this.size < other.size && other.isSuperlistOf(this) -> SUBLIST
             else -> UNEQUAL
         }
 
