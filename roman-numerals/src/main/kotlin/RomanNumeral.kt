@@ -10,7 +10,7 @@
  */
 object RomanNumeral {
 
-    private val romanToArabic = mapOf(
+    private val arabicToRoman = mapOf(
                1 to "I",
                4 to "IV",
                5 to "V",
@@ -29,10 +29,10 @@ object RomanNumeral {
     fun value(n: Int, roman: String = ""): String =
         when (n) {
             0 -> ""
-            in romanToArabic -> roman + romanToArabic[n]
+            in arabicToRoman -> roman + arabicToRoman[n]
             else -> {
-                val nextLargest = romanToArabic.keys.filter { it < n }.last()
-                roman + romanToArabic[nextLargest] + value(n - nextLargest)
+                val nextLargest = arabicToRoman.keys.filter { it < n }.last()
+                roman + arabicToRoman[nextLargest] + value(n - nextLargest)
             }
         }
 
