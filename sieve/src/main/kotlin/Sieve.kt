@@ -1,38 +1,38 @@
-import kotlin.coroutines.experimental.buildSequence
-
 /**
  * Sieve.kt
  *
  * http://exercism.io/exercises/kotlin/sieve/readme
  * http://exercism.io/tracks/kotlin/exercises/sieve
- * http://exercism.io/submissions/ddc8ba0eab324a04b31f57a9b2668ac5
+ * http://exercism.io/submissions/646800e2d53748d8bf3b7bbbba60bf5b
  *
  * @author nrojiani
- * @date 8/18/17
+ * @date 11/12/17
  */
 object Sieve {
-
-    /*
-     * Uses algorithm from https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
-     */
     fun primesUpTo(n: Int): List<Int> {
-        val bools = BooleanArray((0..n).count(), { i -> i >= 2 })
+        return sieveOfEratosthenes(n)
+    }
 
-        (2..n.sqrt()).forEach { i ->
-            if (bools[i]) {
-                buildSequence {
-                    yieldAll((i * i)..n step i)
-                }.forEach { j ->
-                    bools[j] = false
-                }
+    private fun sieveOfEratosthenes(n: Int): List<Int> {
+        /* Index is the number, boolean value is whether the number is possibly prime */
+        val nums = BooleanArray(n + 1, { i -> i !in 0..1 })   // initially true for all x in 2..n
+
+        var p = 2
+        while (p != -1) {
+            /* Mark composite numbers at 2p, 3p, 4p, ... */
+            ((p * 2)..n step p).forEach { np ->
+                nums[np] = false
+            }
+
+            /* Find the first number greater than p in the list that is not marked */
+            p = nums.withIndex().indexOfFirst { (index, unmarked) ->
+                index > p && unmarked
             }
         }
 
-        return bools.foldIndexed(emptyList()) { index, acc, b ->
-            if (b) acc + index else acc
-        }
+        return nums.withIndex()
+                .filter { (index, isPrime) -> isPrime }
+                .map { (index, _) -> index }
     }
+
 }
-
-
-fun Int.sqrt(): Int = Math.sqrt(this.toDouble()).toInt()
