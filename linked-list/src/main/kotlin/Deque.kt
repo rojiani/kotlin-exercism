@@ -123,8 +123,5 @@ class Deque<T> {
 
     fun isEmpty(): Boolean = count() == 0
 
-    override fun toString(): String {
-        return elements().toString()
-    }
-
+    override fun toString(): String = elements().toString()
 }
