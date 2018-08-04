@@ -1,5 +1,7 @@
 */out/*
 
+**/*.solution.json
+
 .idea/shelf
 /android.tests.dependencies
 /confluence/target

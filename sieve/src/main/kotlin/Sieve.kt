@@ -13,6 +13,9 @@ object Sieve {
         return sieveOfEratosthenes(n)
     }
 
+    /**
+     * [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
+     */
     private fun sieveOfEratosthenes(n: Int): List<Int> {
         /* Index is the number, boolean value is whether the number is possibly prime */
         val nums = BooleanArray(n + 1, { i -> i !in 0..1 })   // initially true for all x in 2..n
