@@ -1,55 +1,44 @@
 import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.temporal.TemporalAdjusters
 
 /**
  *
  * http://exercism.io/exercises/kotlin/meetup/readme
+ * https://exercism.io/my/solutions/0da3bda10a2042a88ab48d6d1b88c404
  *
  * @author nrojiani
  * @date 11/22/17
  */
-class Meetup(day: Int, year: Int) {
-    fun day(day: DayOfWeek, schedule: MeetupSchedule): LocalDate {
-        TODO()
+class Meetup(private val month: Int, private val year: Int) {
+
+    /** First day of given month & year. */
+    private val baseDate: LocalDate = LocalDate.of(year, month, 1)
+
+    fun day(day: DayOfWeek, schedule: MeetupSchedule): LocalDate =
+        when (schedule) {
+            MeetupSchedule.TEENTH -> matchTeenthDay(day)
+            MeetupSchedule.LAST -> baseDate.with(TemporalAdjusters.lastInMonth(day))
+            else -> findOrdinalDayInMonth(day, schedule)
+        }
+
+    private fun matchTeenthDay(day: DayOfWeek): LocalDate {
+        val date = LocalDate.of(year, month, 13) // "-teenth" days will be between the 13th through 19th
+
+        return if (date.dayOfWeek == day)
+            date
+        else date.with(TemporalAdjusters.next(day))
     }
+
+    private fun findOrdinalDayInMonth(day: DayOfWeek, scheduleOrdinal: MeetupSchedule): LocalDate {
+        val ordinalNameToInt = mapOf(
+            MeetupSchedule.FIRST to 1,
+            MeetupSchedule.SECOND to 2,
+            MeetupSchedule.THIRD to 3,
+            MeetupSchedule.FOURTH to 4
+        )
+
+        return baseDate.with(TemporalAdjusters.dayOfWeekInMonth(ordinalNameToInt[scheduleOrdinal]!!, day))
+    }
+
 }
-/*
-day - "day" -> (monday).drop(3) + "teenth"
-endsWith("teenth")
- */
-
-
-/*
-Typically meetups happen on the same day of the week. In this exercise, you will take a description of a meetup date, and return the actual meetup date.
-
-The first Monday of January 2017
-The third Tuesday of January 2017
-The wednesteenth of January 2017
-The last Thursday of January 2017
-
-The descriptors you are expected to parse are:
-first,
-second,
-third,
-fourth,
-fifth,
-last,
-monteenth,
-tuesteenth,
-wednesteenth,
-thursteenth,
-friteenth,
-saturteenth,
-sunteenth
-
-there are exactly 7 numbered days in a month that end in '-teenth'
-Therefore, one is guaranteed that each day of the week (Monday, Tuesday, ...) will have exactly one date that is named with '-teenth' in every month.
-
-13th - 19th
-
-monteeth = Monday 16th
-
-
-Given examples of a meetup dates, each containing a month, day, year, and descriptor calculate the date of the actual meetup.
-For example, if given "The first Monday of January 2017", the correct meetup date is 2017/1/2.
- */

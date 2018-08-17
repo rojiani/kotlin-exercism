@@ -45,7 +45,7 @@ class Clock(private var hours: Int, private var minutes: Int) {
     }
 
     override fun toString(): String {
-        handleOverflow()
+        normalize()
 
         val to2Digits: (Int) -> String = { String.format("%02d", it) }  // Add leading zeroes where necessary
         return "${to2Digits(hours)}:${to2Digits(minutes)}"
