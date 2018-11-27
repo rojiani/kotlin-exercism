@@ -1,6 +1,5 @@
 /**
- * http://exercism.io/exercises/kotlin/say/readme
- * http://exercism.io/tracks/kotlin/exercises/say
+ * https://exercism.io/my/solutions/433ab8bb0c0345369484f64167720f94
  * Given a number from 0 to 999,999,999,999, spell out that number in English.
  */
 class NumberSpeller {
