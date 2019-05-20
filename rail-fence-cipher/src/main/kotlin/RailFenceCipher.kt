@@ -69,7 +69,6 @@ class RailFenceCipher(private val rails: Int) {
                     rails - 1 -> direction = UP
                 }
 
-                // place the marker
                 if (railMatrix[row][col] != '*') {
                     append(railMatrix[row][col])
                     col++
@@ -101,9 +100,10 @@ class RailFenceCipher(private val rails: Int) {
                 direction = direction.opposite()
             }
 
-            railMatrix[row][col++] = letter
+            railMatrix[row][col] = letter
 
-            // Find the next row using direction flag
+            // Find the next row & column
+            col++
             when (direction) {
                 DOWN -> row++
                 UP -> row--
